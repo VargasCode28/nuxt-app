@@ -1,71 +1,44 @@
-
 <script setup lang="ts">
-// Vinculamos al mismo estado global del modal
+// Vinculamos los estados globales de los modales
 const isLoginModalOpen = useState('isLoginModalOpen')
+const isCartModalOpen = useState('isCartModalOpen')
 
 const openLogin = () => {
   isLoginModalOpen.value = true
 }
+
+const openCart = () => {
+  isCartModalOpen.value = true
+}
+
+
+
 </script>
-
-
-
-
-
-
-
-
 
 <template>
   <nav class="navbar">
     
     <!-- Bloque 1: Logotipo -->
     <div class="navbar-brand">
-      <NuxtLink to="/" class="logo">
-        <!-- Puedes reemplazar el texto por tu etiqueta <img> más adelante -->
-        LOGO
-      </NuxtLink>
+      <NuxtLink to="/" class="logo">LOGO</NuxtLink>
     </div>
 
     <!-- Bloque 2: Enlaces de navegación -->
     <div class="navbar-links">
-      <NuxtLink to="/cliente/productos" class="nav-item">Products</NuxtLink>
+      <NuxtLink to="/cliente/productos" class="nav-item">Nuestros Productos</NuxtLink>
       <NuxtLink to="/cliente/contacto" class="nav-item">Contactanos</NuxtLink>
     </div>
 
-
-
-
-
-
-
-    <!-- Bloque 3: Acciones de usuario -->
+    <!-- Bloque 3: Acciones de usuario (Aquí deben estar ambos botones) -->
     <div class="navbar-actions">
-      <!-- <NuxtLink to="/auth/login" class="btn-login">Login</NuxtLink> -->
-       <button  @click="openLogin" class="btn-login">Login</button>
+      <button @click="openCart" class="btn-cart">Carrito</button>
+      <button @click="openLogin" class="btn-login">Login</button>
     </div>
 
   </nav>
 </template>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <style scoped>
-/* Estructura principal */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -75,7 +48,6 @@ const openLogin = () => {
   border-bottom: 1px solid #f0f0f0; 
 }
 
-/* Estilo del Logotipo */
 .logo {
   font-weight: 700;
   font-size: 1.25rem;
@@ -84,13 +56,11 @@ const openLogin = () => {
   letter-spacing: 1px;
 }
 
-/* Contenedor de enlaces */
 .navbar-links {
   display: flex;
   gap: 2.5rem;
 }
 
-/* Efectos sutiles en los enlaces */
 .nav-item {
   text-decoration: none;
   color: #666666;
@@ -103,15 +73,40 @@ const openLogin = () => {
   color: #111111;
 }
 
-/* Botón de acceso profesional */
+/* Contenedor de los botones a la derecha */
+.navbar-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Botón de carrito */
+.btn-cart {
+  background: transparent;
+  color: #111111;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cart:hover {
+  border-color: #111111;
+}
+
+/* Botón de login */
 .btn-login {
-  text-decoration: none;
   background-color: #111111;
   color: #ffffff;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
   font-size: 0.9rem;
   font-weight: 500;
+  cursor: pointer;
+  border: none;
   transition: background-color 0.2s ease;
 }
 

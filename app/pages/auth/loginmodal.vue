@@ -11,7 +11,27 @@ const handleLogin = () => {
   console.log('Iniciando sesión...')
   closeModal()
 }
+
+
+
+
+
+
+
+
+
+const isRegisterOpen = useState('isRegisterModalOpen')
+const openRegister = () => {
+  closeModal() // cierra login
+  isRegisterOpen.value = true // abre registro
+}
+
+
 </script>
+
+
+
+
 
 <template>
   <div v-if="isOpen" class="modal-overlay" @click.self="closeModal">
@@ -40,9 +60,26 @@ const handleLogin = () => {
         <button type="submit" class="btn-submit">Entrar</button>
       </form>
 
+
+
+
+
+
+
+      <p class="register-prompt">
+      ¿Aún no tienes cuenta? 
+      <span class="register-link" @click="openRegister">Regístrate aquí</span>
+      </p>
+
+
+
+
     </div>
   </div>
 </template>
+
+
+
 
 <style scoped>
 .modal-overlay {
@@ -134,5 +171,29 @@ const handleLogin = () => {
 
 .btn-submit:hover {
   background-color: #333;
+}
+
+
+
+
+/*Estilos para el texto de registro */
+
+.register-prompt {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+
+.register-link{
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+
+.register-link:hover {
+  text-decoration: underline;
 }
 </style>

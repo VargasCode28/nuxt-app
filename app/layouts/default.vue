@@ -21,6 +21,8 @@
 
 
     <LoginModal />
+    <registermodal />
+    <carritomodal/>
     </div>
 </template>
 
@@ -30,6 +32,11 @@
 
 
 
+
+
+
+import carritomodal from '~/components/carritomodal.vue';
 import navbar from '~/components/navbar.vue';
-import LoginModal from '~/pages/auth/LoginModal.vue';
+import LoginModal from '~/pages/auth/loginmodal.vue';
+import Registermodal from '~/pages/auth/registermodal.vue';
 </script>
