@@ -1,33 +1,29 @@
 
-export default defineNuxtRouteMiddleware((to, from) => {
-  // SIMULACIÓN DE DATOS
+export default defineNuxtRouteMiddleware(async (to) => {
+  const user = useState<any>('authUser', () => null)
 
 
-
-  const isAuthenticated = false; // Cambia a true para probar
-  const userRole = 'admin'; // Puede ser 'admin' o 'cliente'
-
-
-
-  // 1. Solo protegemos estrictamente el panel de administración
-  const isProtectedRoute = to.path.startsWith('/admin');
-
-
-
-
-
-  // 2. Si intenta entrar a una ruta protegida (admin) y no tiene sesión, al login
-  if (isProtectedRoute && !isAuthenticated) {
-    return navigateTo('/auth/login');
+  if (user.value === null) {
+    user.value = await $fetch('/api/auth/me').catch(() => null)
   }
 
 
+  const isProtectedRoute = to.path.startsWith('/admin')
 
+  if (isProtectedRoute && (!user.value || user.value.role !== 'ADMIN')) {
+    return navigateTo('/auth/login')
+  }
 
+  // Raíz del sitio: redirige según el rol
 
-
-  // 3. Lógica para la raíz ('/'): redirige automáticamente al inicio de tu tienda/clientes
+  
   if (to.path === '/') {
-    return navigateTo('/cliente');
+    if (user.value?.role === 'ADMIN') {
+      return navigateTo('/admin')
+    }
+    return navigateTo('/cliente')
   }
 })
+
+
+

@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    mongodbUri: process.env.MONGODB_URI,
+    jwtSecret: process.env.JWT_SECRET
+  }
+
 
   // routeRules: {
   //   '/' : { redirect: '/cliente' }  
