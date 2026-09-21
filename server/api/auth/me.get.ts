@@ -13,6 +13,12 @@ export default defineEventHandler(async (event) => {
   if (!user) return null
 
   
-  return { id: user.id, fullName: user.fullName, email: user.email, role: user.role }
+  return {
+    id: user.id,
+    fullName: user.fullName,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt.toISOString()
+  }
 })
 

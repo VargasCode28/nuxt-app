@@ -27,4 +27,19 @@ logs
 # Local env files
 .env
 .env.*
+.env.local
+.env.production
+.env.development
 !.env.example
+
+# Local secrets and generated media
+*.pem
+*.key
+*.crt
+public/uploads/
+uploads/
+
+# IDE / OS files
+*.swp
+*.swo
+Thumbs.db

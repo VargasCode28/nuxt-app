@@ -6,8 +6,10 @@ defineProps<{
     total: number
     status?: string
     createdAt?: string
+    paymentProvider?: string
+    paymentId?: string
+    paymentStatus?: string
   } | null
-  
 }>()
 
 
@@ -44,6 +46,14 @@ const closeModal = () => {
           <div v-if="order.status" class="order-row">
             <span>Estado</span>
             <span class="order-status">{{ order.status }}</span>
+          </div>
+          <div v-if="order.paymentProvider" class="order-row">
+            <span>Proveedor</span>
+            <span>{{ order.paymentProvider }}</span>
+          </div>
+          <div v-if="order.paymentId" class="order-row">
+            <span>Pago</span>
+            <span class="order-id">{{ order.paymentId }}</span>
           </div>
         </div>
 
