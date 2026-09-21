@@ -5,7 +5,13 @@ import { prisma } from '~~/server/utils/prisma'
 
 
 export default defineEventHandler(async (event) => {
-  const { email, password } = await readBody(event)
+  const body = await readBody(event)
+  const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : ''
+  const password = typeof body?.password === 'string' ? body.password : ''
+
+  if (!email || !password || password.length > 200) {
+    throw createError({ statusCode: 400, statusMessage: 'Email o contraseña inválidos' })
+  }
 
   const user = await prisma.user.findUnique({ where: { email } })
   if (!user) {

@@ -76,7 +76,7 @@ const filteredProducts = computed(() => {
     </section>
 
     <!-- Cabecera del Catálogo -->
-    <header class="catalog-header">
+    <header id="catalogo" class="catalog-header">
       <span class="catalog-tag">Curaduría Botánica</span>
       <h1 class="title">Nuestras Plantas</h1>
       <p class="subtitle">Diseño vivo y naturaleza en perfecta armonía para espacios contemporáneos.</p>
@@ -126,9 +126,9 @@ const filteredProducts = computed(() => {
             <span class="product-category">{{ product.category }}</span>
             <div class="product-row">
               <h3 class="product-name">{{ product.name }}</h3>
-              <!-- <button class="add-to-cart-btn" @click.stop="handleAddToCart(product)">
-                Añadir
-              </button> -->
+              <button class="add-to-cart-btn" @click.stop="handleAddToCart(product)">
+                Comprar
+              </button>
             </div>
           </div>
         </article>
@@ -217,7 +217,7 @@ const filteredProducts = computed(() => {
           <div class="footer-logo">
             <svg class="footer-logo-mark" viewBox="0 0 32 32" aria-hidden="true">
               <path d="M16 4C10 9 6 13 6 19C6 24.5 10.5 29 16 29C21.5 29 26 24.5 26 19C26 13 22 9 16 4Z" fill="var(--gold-light)"/>
-              <path d="M16 8V26" stroke="var(--forest)" stroke-width="1.2"/>
+              <path d="M16 8V26" stroke="var(--cream)" stroke-width="1.2"/>
             </svg>
             <span class="footer-logo-text">Clary</span>
           </div>
@@ -227,18 +227,18 @@ const filteredProducts = computed(() => {
         <nav class="footer-links">
           <div class="footer-col">
             <span class="footer-col-title">Tienda</span>
-            <a href="#">Plantas</a>
-            <a href="#">Macetas &amp; Decor</a>
-            <a href="#">Cuidado</a>
+            <a href="#catalogo">Plantas</a>
+            <a href="#catalogo">Macetas &amp; Decor</a>
+            <a href="#contact">Cuidado</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">Compañía</span>
-            <a href="#">Sobre nosotros</a>
-            <a href="#">Contacto</a>
+            <a href="#contact">Sobre nosotros</a>
+            <a href="#contact">Contacto</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">Síguenos</span>
-            <a href="#">Instagram</a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
           </div>
         </nav>
       </div>

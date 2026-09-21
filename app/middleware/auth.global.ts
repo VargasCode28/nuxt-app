@@ -14,6 +14,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return navigateTo('/auth/login')
   }
 
+
+  
   // Raíz del sitio: redirige según el rol
 
   

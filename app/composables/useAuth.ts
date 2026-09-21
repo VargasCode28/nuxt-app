@@ -48,6 +48,8 @@ export const useAuth = () => {
     await navigateTo('/cliente')
   }
 
+
+  
   return { login, register, logout, user, fetchUser, isLoading, errorMessage }
 }
 

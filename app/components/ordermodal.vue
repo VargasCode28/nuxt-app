@@ -7,6 +7,7 @@ defineProps<{
     status?: string
     createdAt?: string
   } | null
+  
 }>()
 
 

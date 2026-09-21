@@ -2,9 +2,9 @@
 <template>
     <div>
 
-        <navbar />
+    <navbar />
 
-    <main>   <!--Aqui es donde Nuxt inyectara el contenido de tus paginas -->
+    <main>      <!--Aqui es donde Nuxt inyectara el contenido de tus paginas -->
         <slot /> 
     </main>
 

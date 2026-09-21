@@ -8,13 +8,19 @@ export interface JwtPayload {
 
 export const signToken = (payload: JwtPayload) => {
   const config = useRuntimeConfig()
-  return jwt.sign(payload, config.jwtSecret as string, { expiresIn: '7d' })
+  const secret = config.jwtSecret
+  if (typeof secret !== 'string' || secret.length < 32) {
+    throw new Error('JWT_SECRET debe tener al menos 32 caracteres')
+  }
+  return jwt.sign(payload, secret, { expiresIn: '1d' })
 }
 
 export const verifyToken = (token: string): JwtPayload | null => {
   try {
     const config = useRuntimeConfig()
-    return jwt.verify(token, config.jwtSecret as string) as JwtPayload
+    const secret = config.jwtSecret
+    if (typeof secret !== 'string' || secret.length < 32) return null
+    return jwt.verify(token, secret) as JwtPayload
   } catch {
     return null
   }

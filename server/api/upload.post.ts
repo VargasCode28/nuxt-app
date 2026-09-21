@@ -1,8 +1,13 @@
 import { writeFile, mkdir } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
+import { requireAuth } from '~~/server/utils/auth'
+
+
+
 
 export default defineEventHandler(async (event) => {
+  await requireAuth(event, 'ADMIN')
   const form = await readMultipartFormData(event)
 
   if (!form || form.length === 0) {
@@ -33,6 +38,8 @@ export default defineEventHandler(async (event) => {
   await writeFile(filePath, file.data)
 
 
+
+  
 
   
   // Ruta pública accesible desde el navegador

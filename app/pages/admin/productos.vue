@@ -201,7 +201,10 @@ const handleDelete = async (product: any) => {
       </thead>
       <tbody>
         <tr v-for="product in products" :key="product._id">
-          <td class="icon-cell">{{ product.image || '🪴' }}</td>
+          <td class="icon-cell">
+            <img v-if="isImageUrl(product.image)" :src="product.image" :alt="product.name" class="product-thumb" />
+            <span v-else>{{ product.image || '🪴' }}</span>
+          </td>
           <td>{{ product.name }}</td>
           <td>{{ product.category }}</td>
           <td>{{ product.price }}</td>
@@ -295,51 +298,58 @@ const handleDelete = async (product: any) => {
 
 <style scoped>
 .products-admin {
-  max-width: 1100px;
+  width: 100%;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
 }
 
 .header h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 0.25rem;
+  margin: 0 0 0.35rem;
+  color: #18231d;
+  font-family: Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 .subtitle {
+  margin: 0;
+  color: #6a776e;
   font-size: 0.9rem;
-  color: #666;
 }
 
 .btn-primary {
-  background-color: #111;
+  background-color: #245b45;
   color: #fff;
-  border: none;
-  padding: 0.65rem 1.25rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  border: 1px solid #245b45;
+  padding: 0.68rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: #333;
+  background-color: #174331;
+  transform: translateY(-1px);
 }
 
 .products-table {
   width: 100%;
   border-collapse: collapse;
   background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 6px;
+  border: 1px solid #dfe7e1;
+  border-radius: 8px;
   overflow: hidden;
+  box-shadow: 0 8px 24px rgba(24, 35, 29, 0.05);
 }
 
 .products-table th {
@@ -347,27 +357,47 @@ const handleDelete = async (product: any) => {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #888;
-  padding: 0.85rem 1rem;
-  background-color: #fafafa;
-  border-bottom: 1px solid #eaeaea;
+  color: #66736b;
+  padding: 0.8rem 1rem;
+  background-color: #f5f8f5;
+  border-bottom: 1px solid #dfe7e1;
 }
 
 .products-table td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid #f0f0f0;
-  font-size: 0.9rem;
-  color: #333;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #edf1ee;
+  font-size: 0.86rem;
+  color: #304037;
+  vertical-align: middle;
+}
+
+.products-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.products-table tbody tr:hover {
+  background: #f8fbf9;
 }
 
 .icon-cell {
+  width: 64px;
+  color: #245b45;
   font-size: 1.4rem;
-  width: 40px;
+}
+
+.product-thumb {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #dfe7e1;
 }
 
 .actions-cell {
   display: flex;
   gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .btn-edit, .btn-delete {
@@ -375,13 +405,16 @@ const handleDelete = async (product: any) => {
   border-radius: 4px;
   font-size: 0.8rem;
   cursor: pointer;
-  border: 1px solid #dcdcdc;
+  border: 1px solid #cdd9d0;
   background: transparent;
+  font-weight: 650;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn-edit:hover {
-  border-color: #111;
-  color: #111;
+  border-color: #245b45;
+  color: #245b45;
+  background: #edf5f0;
 }
 
 .btn-delete {
@@ -394,20 +427,21 @@ const handleDelete = async (product: any) => {
 }
 
 .empty-state {
-  color: #777;
+  color: #6a776e;
   font-size: 0.9rem;
   padding: 3rem;
   text-align: center;
-  background: #fafafa;
-  border-radius: 6px;
+  background: #ffffff;
+  border: 1px dashed #cdd9d0;
+  border-radius: 8px;
 }
 
 /* Modal */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background-color: rgba(24, 35, 29, 0.38);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -415,31 +449,44 @@ const handleDelete = async (product: any) => {
 }
 
 .modal-content {
-  background: #fff;
-  padding: 2.5rem;
+  background: #ffffff;
+  padding: 2rem;
   width: 100%;
   max-width: 450px;
   max-height: 90vh;
   overflow-y: auto;
+  border: 1px solid #dfe7e1;
   border-radius: 8px;
+  box-shadow: 0 24px 60px rgba(24, 35, 29, 0.18);
   position: relative;
 }
 
 .modal-content h2 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem;
+  color: #18231d;
+  font-family: Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 500;
 }
 
 .close-btn {
   position: absolute;
   top: 1rem;
   right: 1.25rem;
-  background: none;
-  border: none;
+  width: 32px;
+  height: 32px;
+  background: #f5f8f5;
+  border: 1px solid #dfe7e1;
+  border-radius: 6px;
   font-size: 1.5rem;
   cursor: pointer;
-  color: #666;
+  color: #66736b;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background: #edf5f0;
+  color: #245b45;
 }
 
 .error-banner {
@@ -462,36 +509,39 @@ const handleDelete = async (product: any) => {
 .form-group label {
   font-size: 0.85rem;
   font-weight: 500;
-  color: #333;
+  color: #304037;
+  font-weight: 650;
 }
 
 .form-group input, .form-group textarea {
   padding: 0.65rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border: 1px solid #cdd9d0;
+  border-radius: 6px;
   font-size: 0.9rem;
   font-family: inherit;
   outline: none;
 }
 
 .form-group input:focus, .form-group textarea:focus {
-  border-color: #111;
+  border-color: #245b45;
+  box-shadow: 0 0 0 3px rgba(36, 91, 69, 0.12);
 }
 
 .btn-submit {
   width: 100%;
-  background-color: #111;
+  background-color: #245b45;
   color: #fff;
   padding: 0.75rem;
   border: none;
-  border-radius: 4px;
-  font-weight: 500;
+  border: 1px solid #245b45;
+  border-radius: 6px;
+  font-weight: 700;
   cursor: pointer;
   margin-top: 0.5rem;
 }
 
 .btn-submit:hover:not(:disabled) {
-  background-color: #333;
+  background-color: #174331;
 }
 
 .btn-submit:disabled {
@@ -621,5 +671,34 @@ const handleDelete = async (product: any) => {
   text-decoration: underline;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(36, 91, 69, 0.2);
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .btn-primary {
+    align-self: flex-start;
+  }
+
+  .products-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .modal-content {
+    max-height: 92vh;
+    padding: 1.5rem;
+  }
+}
 
 </style>

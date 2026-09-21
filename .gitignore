@@ -11,6 +11,10 @@ dist
 # Node dependencies
 node_modules
 
+# Generated/local data
+public/uploads/
+prisma/seed.ts
+
 # Logs
 logs
 *.log

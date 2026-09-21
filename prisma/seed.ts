@@ -41,6 +41,10 @@ async function main() {
   console.log('   ⚠️  Cambia esta contraseña en cuanto inicies sesión.')
 }
 
+
+
+
+
 main()
   .catch((e) => {
     console.error('❌ Error al ejecutar el seed:', e)

@@ -9,7 +9,4 @@ export default defineNuxtConfig({
   }
 
 
-  // routeRules: {
-  //   '/' : { redirect: '/cliente' }  
-  // }
 })

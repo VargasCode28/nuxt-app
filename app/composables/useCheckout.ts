@@ -10,6 +10,7 @@ export const useCheckout = () => {
     isProcessing.value = true
     errorMessage.value = null
     try {
+      
       const order = await checkoutService.pay()
       lastOrder.value = order
       return order

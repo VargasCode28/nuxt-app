@@ -48,7 +48,6 @@ const openLogin = () => {
       <h2 class="modal-title">Crear Cuenta</h2>
       <p class="modal-subtitle">Únete a nuestra comunidad botánica</p>
 
-      <!-- Mensaje de error reactivo -->
       <div v-if="errorMessage" class="error-banner">
         {{ errorMessage }}
       </div>

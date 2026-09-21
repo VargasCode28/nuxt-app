@@ -51,6 +51,9 @@ onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside)
 })
 
+
+
+
 const initials = computed(() => {
   if (!user.value?.fullName) return '?'
   return user.value.fullName
@@ -72,6 +75,17 @@ const scrollToContact = (event: MouseEvent) => {
     navigateTo('/cliente/productos#contact')
   }
 }
+
+const scrollToCatalog = (event: MouseEvent) => {
+  event.preventDefault()
+  const el = document.getElementById('catalogo')
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 96
+    window.scrollTo({ top, behavior: 'smooth' })
+  } else {
+    navigateTo('/cliente#catalogo')
+  }
+}
 </script>
 
 <template>
@@ -84,7 +98,7 @@ const scrollToContact = (event: MouseEvent) => {
     </div>
 
     <div class="navbar-links">
-      <NuxtLink to="/cliente/productos" class="nav-item">Catálogo</NuxtLink>
+      <a href="#catalogo" class="nav-item" @click="scrollToCatalog">Nuestras plantas</a>
       <a href="#contact" class="nav-item" @click="scrollToContact">Contacto</a>
     </div>
 
@@ -145,29 +159,28 @@ const scrollToContact = (event: MouseEvent) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   background: transparent;
-  border: none;
-  border-radius: 50%;
-  color: #1b2b21;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--nav-ink);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn-cart:hover {
-  background-color: #f5f5f5;
-}
-
-.btn-cart:focus-visible {
-  outline: 2px solid #b8863b;
-  outline-offset: 2px;
+  border-color: var(--nav-border);
+  background-color: #f7faf8;
 }
 
 .cart-icon {
+  display: block;
   width: 21px;
   height: 21px;
+  flex: 0 0 21px;
 }
 
 .profile-wrapper {
@@ -182,19 +195,19 @@ const scrollToContact = (event: MouseEvent) => {
   border: none;
   cursor: pointer;
   padding: 0.3rem 0.5rem 0.3rem 0.3rem;
-  border-radius: 24px;
-  transition: background-color 0.2s ease;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .profile-trigger:hover {
-  background-color: #f5f5f5;
+  background-color: var(--nav-accent-soft);
 }
 
 .profile-avatar {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: #111;
+  background-color: var(--nav-accent);
   color: #fff;
   display: flex;
   align-items: center;
@@ -206,7 +219,7 @@ const scrollToContact = (event: MouseEvent) => {
 
 .profile-name {
   font-size: 0.85rem;
-  color: #333;
+  color: var(--nav-ink);
   font-weight: 500;
   max-width: 140px;
   overflow: hidden;
@@ -219,9 +232,9 @@ const scrollToContact = (event: MouseEvent) => {
   top: calc(100% + 0.6rem);
   right: 0;
   background: #ffffff;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--nav-border);
+  border-radius: 6px;
+  box-shadow: 0 16px 36px rgba(24, 35, 29, 0.12);
   width: 260px;
   z-index: 1200;
   overflow: hidden;
@@ -244,7 +257,7 @@ const scrollToContact = (event: MouseEvent) => {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #111;
+  background-color: var(--nav-accent);
   color: #fff;
   display: flex;
   align-items: center;
@@ -257,7 +270,7 @@ const scrollToContact = (event: MouseEvent) => {
 .dropdown-name {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #111;
+  color: var(--nav-ink);
   margin: 0;
 }
 
@@ -291,7 +304,7 @@ const scrollToContact = (event: MouseEvent) => {
 }
 
 .dropdown-item:hover {
-  background-color: #fafafa;
+  background-color: var(--nav-accent-soft);
 }
 
 .dropdown-logout {

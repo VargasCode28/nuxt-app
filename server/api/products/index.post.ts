@@ -1,7 +1,9 @@
 import { connectMongo } from '~~/server/utils/mongodb'
 import { ProductModel } from '~~/server/models/product.model'
+import { requireAuth } from '~~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
+  await requireAuth(event, 'ADMIN')
   await connectMongo()
 
   const body = await readBody(event)

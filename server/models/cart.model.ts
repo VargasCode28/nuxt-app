@@ -1,6 +1,8 @@
 
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
+
+
 export interface ICartItem {
   productId: string
   name?: string
@@ -28,6 +30,9 @@ const cartSchema = new Schema<ICart>({
   items: { type: [cartItemSchema], default: [] },
   updatedAt: { type: Date, default: Date.now }
 })
+
+
+
 
 export const CartModel: Model<ICart> =
   (mongoose.models.Cart as Model<ICart>) || mongoose.model<ICart>('Cart', cartSchema)

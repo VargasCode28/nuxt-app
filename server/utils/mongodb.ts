@@ -6,6 +6,8 @@ export const connectMongo = async () => {
     if (isConnected) return
 
 
+    
+
     const config = useRuntimeConfig()
     await mongoose.connect(config.mongodbUri as string)
     isConnected = true
